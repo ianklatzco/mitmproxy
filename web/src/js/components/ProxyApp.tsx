@@ -78,7 +78,8 @@ class ProxyAppMain extends Component<ProxyAppMainProps, ProxyAppMainState> {
 export default connect(
     (state: RootState) => ({
         showEventLog: state.eventLog.visible,
-        showCommandBar: state.commandBar.visible
+        showCommandBar: state.commandBar.visible,
+        showRepeater: state.repeater.visible
     }),
     {
         onKeyDown,

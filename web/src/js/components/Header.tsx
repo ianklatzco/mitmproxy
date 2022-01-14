@@ -4,6 +4,7 @@ import StartMenu from './Header/StartMenu'
 import OptionMenu from './Header/OptionMenu'
 import FileMenu from './Header/FileMenu'
 import FlowMenu from './Header/FlowMenu'
+import RepeaterMenu from './Header/RepeaterMenu'
 import ConnectionIndicator from "./Header/ConnectionIndicator"
 import HideInStatic from './common/HideInStatic'
 import {useAppSelector} from "../ducks";
@@ -19,7 +20,7 @@ export default function Header() {
         [ActiveMenu, setActiveMenu] = useState<Menu>(() => StartMenu),
         [wasFlowSelected, setWasFlowSelected] = useState(false);
 
-    let entries: Menu[] = [StartMenu, OptionMenu];
+    let entries: Menu[] = [StartMenu, OptionMenu, RepeaterMenu];
     if (selectedFlows.length > 0) {
         if (!wasFlowSelected) {
             setActiveMenu(() => FlowMenu);
