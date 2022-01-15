@@ -16,6 +16,9 @@ import Dropdown, {MenuItem} from "../common/Dropdown";
 import {copy} from "../../flow/export";
 import {Flow} from "../../flow";
 import {RepeaterToggle} from "./MenuToggle"
+import FilterInput from "./FilterInput"
+import {update as updateOptions} from "../../ducks/options";
+import * as flowsActions from "../../ducks/flows"
 
 RepeaterMenu.title = 'Repeater'
 
@@ -23,16 +26,44 @@ export default function RepeaterMenu(): JSX.Element {
     const dispatch = useAppDispatch(),
         flow = useAppSelector(state => state.flows.byId[state.flows.selected[0]])
 
-    // if (!flow)
-    //     return <div/>
     return (
-        <div className="menu-group">
-            <div className="menu-content">
-                <RepeaterToggle/>
+        <div className="main-menu">
+            <div className="menu-group">
+                <div className="menu-content">
+                    <RepeaterToggle/>
+                    <InterceptInput/>
+                </div>
             </div>
-            <div className="menu-legend">View Options</div>
+
+            <div className="menu-group">
+                <div className="menu-content">
+                    <CreateFlow/>
+                </div>
+            </div>
         </div>
     )
+}
+
+export function CreateFlow() {
+    const dispatch = useAppDispatch();
+    return (
+        <Button className="btn-sm" title="[a]ccept all"
+                icon="fa-forward text-success" onClick={() => dispatch(flowsActions.create())}>
+            Create Flow
+        </Button>
+    )
+}
+
+function InterceptInput() {
+    const dispatch = useAppDispatch(),
+        value = useAppSelector(state => state.options.intercept)
+    return <FilterInput
+        value={value || ""}
+        placeholder="Intercept"
+        type="pause"
+        color='hsl(208, 56%, 53%)'
+        onChange={val => dispatch(updateOptions("intercept", val))}
+    />
 }
 
 // Reference: https://stackoverflow.com/a/63627688/9921431
